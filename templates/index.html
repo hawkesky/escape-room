@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>EDNEKS SECURITY CORPORATION</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-$END$
+    <div class="container">
+        <h1>EDNEKS SECURITY CORPORATION</h1>
+        <h2>Uzyskaj dostęp do tajnych zasobów</h2>
+        <a href="{{ url_for('authenticate') }}" class="button">Dalej</a>
+    </div>
 </body>
 </html>

@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>EDNEKS SECURITY CORPORATION</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-$END$
+    <div class="container">
+        <h1>Uwierzytelnienie</h1>
+        <p>Zanim otrzymasz tajny kod, musisz odpowiedzieć na poniższe pytania:</p>
+        <form method="post">
+            <label for="author_robot_fables">Kto napisał "Bajki robotów"?</label>
+            <br/>
+            <input type="text" id="author_robot_fables" name="author_robot_fables" required>
+
+
+            <br/><br/>
+            <label for="david_bowie_song">Jaki jest tytuł "kosmicznej" piosenki Davida Bowiego?</label>
+            <br/>
+            <input type="text" id="david_bowie_song" name="david_bowie_song" required>
+            <br/><br/>
+
+
+            <label for="anakin_skywalker_mother">Jak miała na imię matka Anakina Skywalkera?</label>
+            <br/>
+            <input type="text" id="anakin_skywalker_mother" name="anakin_skywalker_mother" required>
+            <br/><br/>
+
+            <label for="hedgehog_night_behavior">Dokąd nocą tupta jeż?</label><br/>
+
+            <input type="text" id="hedgehog_night_behavior" name="hedgehog_night_behavior">
+            <br/><br/>
+            <button type="submit"><a href="{{ url_for('vault') }}">Przejdź do tajnego kodu</a></button>
+        </form>
+
+    </div>
 </body>
 </html>
