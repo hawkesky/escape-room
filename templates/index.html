@@ -1,15 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>EDNEKS SECURITY CORPORATION</title>
+    <title>ZAGADKA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        *{
+                margin: 0;
+                padding: 0;
+            }
+
+            body {background: black;}
+            canvas {display:block; position: absolute}
+            div {position: relative}
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>EDNEKS SECURITY CORPORATION</h1>
-        <h2>Uzyskaj dostęp do tajnych zasobów</h2>
-        <a href="{{ url_for('authenticate') }}" class="button">Dalej</a>
+<canvas id="c"></canvas>
+    <div class="container" style="margin-top:0">
+    <h1>Podaj tajne hasło związane z obrazkiem</h1>
+            {% if message %}
+        <script>
+            alert("{{ message }}");
+        </script>
+    {% endif %}
+    <form method="post" action="/check_keyword">
+        <input type="text" name="keyword" pattern="[A-Za-z]+" title="Tylko litery!" required>
+        <input type="submit" value="Dalej">
+    </form>
+
     </div>
+<script>
+    // geting canvas by Boujjou Achraf
+        var c = document.getElementById("c");
+        var ctx = c.getContext("2d");
+
+        //making the canvas full screen
+        c.height = window.innerHeight;
+        c.width = window.innerWidth;
+
+        //chinese characters - taken from the unicode charset
+        var matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        //converting the string into an array of single characters
+        matrix = matrix.split("");
+
+        var font_size = 10;
+        var columns = c.width/font_size; //number of columns for the rain
+        //an array of drops - one per column
+        var drops = [];
+        //x below is the x coordinate
+        //1 = y co-ordinate of the drop(same for every drop initially)
+        for(var x = 0; x < columns; x++)
+            drops[x] = 1;
+
+        //drawing the characters
+        function draw()
+        {
+            //Black BG for the canvas
+            //translucent BG to show trail
+            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+            ctx.fillRect(0, 0, c.width, c.height);
+
+            ctx.fillStyle = "#f4427d";//green text
+            ctx.font = font_size + "px arial";
+            //looping over drops
+            for(var i = 0; i < drops.length; i++)
+            {
+                //a random chinese character to print
+                var text = matrix[Math.floor(Math.random()*matrix.length)];
+                //x = i*font_size, y = value of drops[i]*font_size
+                ctx.fillText(text, i*font_size, drops[i]*font_size);
+
+                //sending the drop back to the top randomly after it has crossed the screen
+                //adding a randomness to the reset to make the drops scattered on the Y axis
+                if(drops[i]*font_size > c.height && Math.random() > 0.975)
+                    drops[i] = 0;
+
+                //incrementing Y coordinate
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+</script>
 </body>
 </html>
