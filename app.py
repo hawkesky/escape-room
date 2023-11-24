@@ -6,12 +6,7 @@ app = Flask(__name__)
 
 
 def redirect_on_user_agent(user_agent):
-    if "Android" in user_agent:
-        return redirect('https://play.google.com/store/apps/details?id=pl.ayground.playbackapp&hl=pl&gl=US')
-    elif "Windows" in user_agent:
-        return redirect('https://mp3cut.net/pl/reverse-audio')
-    elif "iPhone" in user_agent:
-        return redirect('https://apps.apple.com/us/app/reverse-audio/id1254981556')
+
 
 
 @app.route('/', methods=['GET'])
@@ -23,9 +18,11 @@ def index():
 def check_keyword():
     keyword = request.form['keyword']
     user_agent = request.headers.get('User-Agent')
-    print(user_agent)
     if keyword.lower() == 'apokalipsa':
-        redirect_on_user_agent(user_agent)
+        if "iPhone" in user_agent:
+            return redirect('https://apps.apple.com/us/app/reverse-audio/id1254981556')
+        else:
+            return redirect('https://play.google.com/store/apps/details?id=pl.ayground.playbackapp&hl=pl&gl=US')
     else:
         return render_template('index.html', message='Nieprawidłowa odpowiedź!')
 
