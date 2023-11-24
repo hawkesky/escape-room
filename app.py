@@ -5,10 +5,6 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 
-def redirect_on_user_agent(user_agent):
-
-
-
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
