@@ -23,7 +23,7 @@ def index():
 def check_keyword():
     keyword = request.form['keyword']
     user_agent = request.headers.get('User-Agent')
-
+    print(user_agent)
     if keyword.lower() == 'apokalipsa':
         redirect_on_user_agent(user_agent)
     else:
